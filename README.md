@@ -19,6 +19,6 @@ These scripts have been tested with Relion 3.1 and 4.0beta.
 
 ## User guide
 
-A simple user guide can be found on [Relion crYOLO integration|https://confluence.desy.de/display/CCS/Relion+3.1+crYOLO+integration].
+A simple user guide can be found on [Relion crYOLO integration](https://confluence.desy.de/display/CCS/Relion+3.1+crYOLO+integration).
 
 
