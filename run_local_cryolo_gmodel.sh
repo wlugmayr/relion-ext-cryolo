@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Written by Wolfgang Lugmayr <wolfgang.lugmayr@cssb-hamburg.de>
+# Written by Wolfgang Lugmayr <w.lugmayr@uke.de>
 #
 # You may use this software as allowed by the 2-Clause BSD License
 # https://opensource.org/licenses/BSD-2-Clause
@@ -13,13 +13,12 @@ print_help() {
     echo
     echo "usage: $(basename $1) args"
     echo "  --o             jobdir"
-    echo "  --in_mics       MotionCorr/job???/corrected_micrographs.star"
+    echo "  --mdir          the original movie folder name (e.g. Movies or Micrographs)"
     echo "  --threshold     crYOLO threshold (default 0.3)"
     echo "  --help          give this help"
     echo "  --version       show version number"
     echo
 }
-
 #-----------------------------------------------------------
 check_file() {
     if [ ! -f ${1} ]; then
@@ -40,10 +39,10 @@ fi
 while [ $# -gt 0 ] ; do
     case $1 in
         -o | --o) DIR="$2" ;;
-        -i | --in_mics) IN_MICS_STAR="$2" ;;
+        -i | --mdir) MDIR="$2" ;;
         -t | --threshold) CRYOLO_THRES="$2" ;;
         -h | --help) HELP=1 ;;
-        -v | --version) echo "$(basename $0) 1.5"; exit 4 ;;
+        -v | --version) echo "$(basename $0) 1.3"; exit 4 ;;
     esac
     shift
 done
@@ -51,29 +50,27 @@ if [ ${HELP} -eq 1 ]; then
     print_help $0
     exit 4
 fi
+# check gmodel files
+check_file ${REC_CRYOLO_JSON}
+check_file ${REC_CRYOLO_H5}
 
-# prepare job
-echo "preparing input movies"
-cd ${DIR}
-PREFIX=../..
-relion_star_printtable ${PREFIX}/${IN_MICS_STAR} data_micrographs _rlnMicrographName >micnames.txt
-MDIR=$(basename $(dirname $(head -1 micnames.txt)))
-mkdir -p ${MDIR}
-cd ${MDIR}
-for f in $(cat ../micnames.txt); do
-    cp -sn ${PREFIX}/../$f .
-done
-cd ..
+# run the job
+echo "### start : $(date)  ###"
 
-# prepare, document and run job
-echo "checking file from $REC_CRYOLO_SCRIPT"
-check_file ${REC_CRYOLO_SCRIPT}
+# run cryolo
+${CRYOLOPATH}/bin/python \
+    -u ${CRYOLOPATH}/bin/cryolo_gui.py \
+    --ignore-gooey predict -c ${REC_CRYOLO_JSON} -w ${REC_CRYOLO_H5} \
+    -i $(pwd)/${MDIR} -o 'predict_gmodel' \
+    -t ${CRYOLO_THRES} -pbs '3' --gpu_fraction '1.0' -nc '-1' -mw '100' -sr '1.41'
 
-echo ${REC_CRYOLO_SCRIPT} --o ${DIR} --mdir ${MDIR} --threshold ${CRYOLO_THRES} >>note.txt
-if [ -z ${REC_CRYOLO_SUBMIT} ]; then
-	bash $REC_CRYOLO_SCRIPT --o ${DIR} --mdir ${MDIR} --threshold ${CRYOLO_THRES}
-else
-	${REC_CRYOLO_SUBMIT} ${REC_CRYOLO_SCRIPT} --o ${DIR} --mdir ${MDIR} --threshold ${CRYOLO_THRES}
-fi
+# prepare for relion import
+cp predict_gmodel/STAR/*.star ${MDIR}
+echo "import in relion: ${DIR}${MDIR}/*.star" >>note.txt
+echo " ++++" >>note.txt
+echo "import in relion: ${DIR}${MDIR}/*.star"
 
+touch RELION_JOB_EXIT_SUCCESS
+
+echo "### end: $(date)  ###"
 
