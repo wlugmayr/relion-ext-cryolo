@@ -1,11 +1,13 @@
-# Relion external job integration with the crYOLO particle picking software
+# Relion external crYOLO job support
 
-These scripts have been tested with Relion 3.1 and 4.0beta and crYOLO 1.6 up to 1.8.
+These scripts can be called inside the [Relion](https://relion.readthedocs.io) user interface in the **External** jobs section. They setup a correct Relion directory structure and call the external [crYOLO](https://cryolo.readthedocs.io) particle picking software using the crYOLO generic model. This means no handpicking or training a model is required. The picked coordinates can be imported with the Relion **Import** function.
+
+These scripts have been tested with *Relion 3.1* and *4.0beta* and *crYOLO 1.6* up to *1.8*.
 
 ## Known limitations
 
- * only the crYOLO **gmodel** can be used so far
- * only the **threshold** parameter can be set in the Relion user interface
+ * only the pre-made crYOLO **gmodel** can be used so far
+ * only the additional **threshold** parameter can be set and changed in the Relion user interface
 
 
 ## Installation
@@ -14,9 +16,13 @@ It is assumed that the Relion and crYOLO software is already installed and the c
 
 1. Checkout the repository or download the bash scripts
 
-2. Adapt and add the settings from **env.source** file to your environment (e.g. **$HOME/.bashrc**)
+2. Decide if you run the scripts *locally* on a workstation or *submit* the cryOLO job as a job to a computing cluster. A working example from our SLURM cluster is provided. 
 
-3. Put the bash script **relion_ext_cryolo_gmodel.sh** to **$PATH** like **/usr/local/bin** or choose it via the **Browse** button in Relion.
+3. **Adapt** and **add** the settings from **env.source** file to your environment (e.g. **$HOME/.bashrc**)
+
+4. *(optional)* The scripts run just with the environment settings. You can override the crYOLO calls in these *cryolo_gmodel.sh* scripts if needed.
+
+5. Put the bash script **relion_ext_cryolo_gmodel.sh** to **$PATH** like **/usr/local/bin** or choose it via the **Browse** button in Relion.
 
 
 ## User guide
