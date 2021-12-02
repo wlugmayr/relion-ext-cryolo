@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Written by Wolfgang Lugmayr <w.lugmayr@uke.de>
+# Written by Wolfgang Lugmayr <wolfgang.lugmayr@cssb-hamburg.de>
 #
 # You may use this software as allowed by the 2-Clause BSD License
 # https://opensource.org/licenses/BSD-2-Clause
