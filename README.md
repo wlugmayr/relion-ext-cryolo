@@ -16,7 +16,7 @@ It is assumed that the Relion and crYOLO software is already installed and the c
 
 1. Checkout the repository or download the bash scripts
 
-2. Decide if you run the scripts *locally* on a workstation or *submit* the cryOLO job as a job to a computing cluster. A working example from our SLURM cluster is provided. 
+2. Decide if you run the scripts *locally* on a workstation or *submit* the crYOLO job as a job to a computing cluster. A working example from our SLURM cluster is provided. 
 
 3. **Adapt** and **add** the settings from **env.source** file to your environment (e.g. **$HOME/.bashrc**)
 
