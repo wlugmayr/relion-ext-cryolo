@@ -18,9 +18,9 @@ It is assumed that the Relion and crYOLO software is already installed and the c
 
 2. Decide if you run the scripts *locally* on a workstation or *submit* the crYOLO job as a job to a computing cluster. A working example from our SLURM cluster is provided. 
 
-3. **Adapt** and **add** the settings from **env.source** file to your environment (e.g. **$HOME/.bashrc**)
+3. **Adapt** and **add** the settings from **env.source** file to your environment (e.g. **$HOME/.bashrc**). Alternatively you can **adapt** and copy the file **env.modules** to e.g. **$HOME/privatemodules/relion-ext-cryolo** if you are using *environment modules*.
 
-4. *(optional)* The scripts run just with the environment settings. You can override the crYOLO calls in these *cryolo_gmodel.sh* scripts if needed.
+4. *(Optional)* The scripts run just with the environment settings. You can override the crYOLO calls in these *cryolo_gmodel.sh* scripts if needed.
 
 5. Put the bash script **relion_ext_cryolo_gmodel.sh** to **$PATH** like **/usr/local/bin** or choose it via the **Browse** button in Relion.
 
