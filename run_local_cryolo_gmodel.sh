@@ -65,6 +65,9 @@ ${CRYOLOPATH}/bin/python \
     -i $(pwd)/${MDIR} -o 'predict_gmodel' \
     -t ${CRYOLO_THRES} -pbs '3' --gpu_fraction '1.0' -nc '-1' -mw '100' -sr '1.41'
 
+# cleanup temporary files
+rm -rf ./filtered_tmp
+
 # prepare for relion import
 cp predict_gmodel/STAR/*.star ${MDIR}
 echo "import in relion: ${DIR}${MDIR}/*.star" >>note.txt
