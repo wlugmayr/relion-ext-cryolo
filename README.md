@@ -28,6 +28,6 @@ It is assumed that the Relion and crYOLO software is already installed and the c
 
 ## User guide
 
-A simple user guide can be found on [Relion crYOLO integration](https://confluence.desy.de/display/CCS/Relion+crYOLO+integration).
+A simple user guide can be found on [Relion crYOLO integration](docs/README.md).
 
 
