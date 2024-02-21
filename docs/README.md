@@ -14,10 +14,10 @@ Quickstart Guide
 
 ![Relion External](relion_ext_cryolo_input.png)
 
-![Relion Params](relion_ext_cryolo_params.png)
-
 The script currently supports the additional crYOLO parameter threshold. If you need to change this you can add in the **Params** tab
 otherwise the **default value** of **0.3** is used:
+
+![Relion Params](relion_ext_cryolo_params.png)
 
 When the script is done look at the Relion log window for something like below and use this as input file pattern in the Relion **Import** tab.
 
@@ -68,18 +68,17 @@ handpicking job.
 ## Notes for Relion via CCP-EM DOPPIO
 
 In the tested **2023.10** release of *DOPPIO* you cannot import the
-coordinates as **Particle coordinates (*.box, *_pick.star)** . In
+coordinates as *Particle coordinates (*.box, *_pick.star)* . In
 addition to the section *copying the coordinates* above you must do:
 
     cat ManualPick/job014/note.txt
     relion_manualpick ...
     find  ManualPick/job014 -name "*.json" -delete
 
-The line *relion_manualpick ... * above must be replaced by the
+The line *relion_manualpick ...* above must be replaced by the
 commandline from the *note.txt* file. This will open the *Relion* user
 interface where you must choose the menu **File → Save selection** and
-then quit the user interface. Then you must delete the *doppio-web
-.json* file so its refreshed when you want to see the picking results
-in the *DOPPIO* webinterface.
+then quit the user interface. Then you must delete the *doppio-web.json*
+file so its refreshed when you want to see the picking results in the *DOPPIO* webinterface.
 
 
